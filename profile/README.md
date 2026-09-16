@@ -2,6 +2,10 @@
 
 **Soroban contract provenance, dependency and impact infrastructure.**
 
+[![Explorer](https://img.shields.io/badge/explorer-live-000000?logo=vercel)](https://amasario-explorer.vercel.app)
+[![Engine CI](https://github.com/Amasario-Soroban-Click/amasario-provenance-engine/actions/workflows/ci.yml/badge.svg)](https://github.com/Amasario-Soroban-Click/amasario-provenance-engine/actions/workflows/ci.yml)
+[![Reference build](https://github.com/Amasario-Soroban-Click/amasario-provenance-engine/actions/workflows/reference.yml/badge.svg)](https://github.com/Amasario-Soroban-Click/amasario-provenance-engine/actions/workflows/reference.yml)
+
 Amasario answers one question about a Soroban contract, and it answers it about a chain
 rather than about a repository:
 
@@ -12,6 +16,13 @@ The answers are documents: JSON, Markdown, DOT, GraphML and JUnit, each of which
 what was observed, what was inferred, what was verified, what is unknown and what failed
 — as separate things that never merge.
 
+[**amasario-explorer.vercel.app**](https://amasario-explorer.vercel.app) is the deployment,
+and the shortest way to see what the documents look like. It renders the engine's own
+committed documents — the dependency graphs, the snapshot pair, the reference contract's
+decoded modules — with the digest of every vendored file re-checked in its own CI. It
+performs no analysis: it is a viewer, deliberately, so that a diagram cannot claim more
+than the table beside it.
+
 ## The layers
 
 Four repositories, and the boundaries between them are the design rather than an
@@ -21,7 +32,7 @@ accident of packaging.
 | --- | --- | --- |
 | [`amasario-provenance-spec`](https://github.com/Amasario-Soroban-Click/amasario-provenance-spec) | **normative** | What Amasario means by contract identity, artifact identity, provenance, dependency, evidence, confidence and impact: 24 strict JSON Schemas, 10 taxonomies, 24 models, 18 rules, 17 fixtures, 13 deterministic vectors. It performs no analysis. |
 | [`amasario-provenance-engine`](https://github.com/Amasario-Soroban-Click/amasario-provenance-engine) | **execution** | The Rust CLI and libraries that consume the specification: contract inspection, network observation, evidence collection, provenance verification, dependency discovery, graph construction, impact analysis, snapshots and reports. Read-only, with no command that submits a transaction and no key handling anywhere. |
-| [`amasario-explorer`](https://github.com/Amasario-Soroban-Click/amasario-explorer) | **presentation** | A browser over the engine's own documents — dependency graphs, provenance chains, snapshot diffs, verification scope and the reference contract's decoded interface. |
+| [`amasario-explorer`](https://github.com/Amasario-Soroban-Click/amasario-explorer) | **presentation** | A browser over the engine's own documents — dependency graphs, provenance chains, snapshot diffs, verification scope and the reference contract's decoded interface. Live at [amasario-explorer.vercel.app](https://amasario-explorer.vercel.app). |
 | [`amasario-docs`](https://github.com/Amasario-Soroban-Click/amasario-docs) | **documentation** | The cross-repository documentation: how the layers fit, what each refuses to claim, and how to contribute to any of them. |
 
 A specification with one implementation can be whatever that implementation does. Keeping
@@ -70,5 +81,8 @@ cargo build --workspace --all-features
 cargo test  --workspace --all-features
 ```
 
-Every repository carries a `CONTRIBUTING.md` with the checks its CI runs, a `SECURITY.md`
-stating what is in scope, and issue templates for the kinds of change each one accepts.
+Each repository carries a `CONTRIBUTING.md` naming the checks its CI runs and a `SECURITY.md`
+stating what is in scope. The engine's are the longest because it has the most surface; the
+two newer repositories state the same rules more briefly, which is a difference in size rather
+than in standard. If the change you want to make has no issue for it, that is usually a gap in
+the issue list rather than in your idea — opening one is a contribution in itself.
