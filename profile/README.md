@@ -3,8 +3,11 @@
 **Soroban contract provenance, dependency and impact infrastructure.**
 
 [![Explorer](https://img.shields.io/badge/explorer-live-000000?logo=vercel)](https://amasario-explorer.vercel.app)
+[![Walkthrough](https://img.shields.io/badge/%E2%96%B6_watch-the_5--minute_walkthrough-58a6ff)](https://amasario-explorer.vercel.app/pitch/amasario-pitch-v1.mp4)
 [![Engine CI](https://github.com/Amasario-Soroban-Click/amasario-provenance-engine/actions/workflows/ci.yml/badge.svg)](https://github.com/Amasario-Soroban-Click/amasario-provenance-engine/actions/workflows/ci.yml)
 [![Reference build](https://github.com/Amasario-Soroban-Click/amasario-provenance-engine/actions/workflows/reference.yml/badge.svg)](https://github.com/Amasario-Soroban-Click/amasario-provenance-engine/actions/workflows/reference.yml)
+
+[![Press play: the five-minute walkthrough](https://amasario-explorer.vercel.app/pitch/amasario-pitch-thumbnail.png)](https://amasario-explorer.vercel.app/pitch/amasario-pitch-v1.mp4)
 
 Amasario answers one question about a Soroban contract, and it answers it about a chain
 rather than about a repository:
