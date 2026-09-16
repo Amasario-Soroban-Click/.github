@@ -28,15 +28,30 @@ than the table beside it.
 
 ## The layers
 
-Four repositories, and the boundaries between them are the design rather than an
-accident of packaging.
+Four repositories carry the layers, and the boundaries between them are the design rather
+than an accident of packaging. This profile is a fifth repository in the organisation, and
+it holds no layer: it is the front door to the other four.
 
 | Repository | Layer | What it is |
 | --- | --- | --- |
 | [`amasario-provenance-spec`](https://github.com/Amasario-Soroban-Click/amasario-provenance-spec) | **normative** | What Amasario means by contract identity, artifact identity, provenance, dependency, evidence, confidence and impact: 24 strict JSON Schemas, 10 taxonomies, 24 models, 18 rules, 17 fixtures, 13 deterministic vectors. It performs no analysis. |
 | [`amasario-provenance-engine`](https://github.com/Amasario-Soroban-Click/amasario-provenance-engine) | **execution** | The Rust CLI and libraries that consume the specification: contract inspection, network observation, evidence collection, provenance verification, dependency discovery, graph construction, impact analysis, snapshots and reports. Read-only, with no command that submits a transaction and no key handling anywhere. |
 | [`amasario-explorer`](https://github.com/Amasario-Soroban-Click/amasario-explorer) | **presentation** | A browser over the engine's own documents — dependency graphs, provenance chains, snapshot diffs, verification scope and the reference contract's decoded interface. Live at [amasario-explorer.vercel.app](https://amasario-explorer.vercel.app). |
-| [`amasario-docs`](https://github.com/Amasario-Soroban-Click/amasario-docs) | **documentation** | The cross-repository documentation: how the layers fit, what each refuses to claim, and how to contribute to any of them. |
+| [`amasario-docs`](https://github.com/Amasario-Soroban-Click/amasario-docs) | **cross-cutting** | What belongs to no single layer: how the layers fit, what each refuses to claim, the compatibility policy, the governance, and the gaps that are known and not yet closed. |
+
+Two of those layers are also reachable from outside the repositories. The explorer is a live
+deployment, and the reference contract pair under the engine's
+[`reference-contract/`](https://github.com/Amasario-Soroban-Click/amasario-provenance-engine/tree/main/reference-contract)
+is deployed to Testnet — callee
+[`CBMPDHYWBGBJ4JAUKNLE6OTC4LQTLV3XFVMAN72MCFSMN2EOJPYEXK6N`](https://stellar.expert/explorer/testnet/contract/CBMPDHYWBGBJ4JAUKNLE6OTC4LQTLV3XFVMAN72MCFSMN2EOJPYEXK6N),
+caller
+[`CBNCEDVA7SQ2NSNGG7RGQOK4VESBN2YSCLJ6DSHRL6QH72VPR5MYIVCA`](https://stellar.expert/explorer/testnet/contract/CBNCEDVA7SQ2NSNGG7RGQOK4VESBN2YSCLJ6DSHRL6QH72VPR5MYIVCA) —
+with both deployed modules hashing to the committed fixtures, so "the module this project
+builds" and "the module that is running" are the same bytes and it is the chain that says
+so. It is a fixture rather than a service: nothing calls it on a schedule, and it exists so
+that the dependency and provenance analysis has a target this project owns rather than only
+one it borrows. The engine still holds no key and signs nothing; the deployment is made by a
+committed script that names an identity the `stellar` CLI keeps in its own keystore.
 
 A specification with one implementation can be whatever that implementation does. Keeping
 the normative model separate from the engine keeps it small enough to depend on and
